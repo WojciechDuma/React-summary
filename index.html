@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React - knowledge summary</title>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            max-width: 80%;
+            margin: auto;
+            background-color: #434343;
+            color: #efefef;
+            font-size: 20px;
+            font-family: roboto, arial, sans-serif;
+        }
+
+        pre {
+            min-width: 1000px;
+            padding-top: 20px;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            color: black;
+            font-size: 0.9em;
+        }
+
+        span {
+            color: royalblue;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .lineThrough {
+            text-decoration: line-through;
+            color: goldenrod;
+            font-size: 1em;
+        }
+
+        h4 {
+            color: chocolate;
+            font-style: italic;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            color: royalblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>React knowledge summary:</h2>
+
+    <h3>Spis treści:</h3>
+    <ul>
+        <li><a href="#jxs">JXS</a></li>
+        <li><a href="#komponenty">Komponenty</a></li>
+        <li><a href="#state">State</a></li>
+        <li><a href="#props">Props</a></li>
+        <li><a href="#this">Problem z 'this'</a></li>
+        <li><a href=""></a></li>
+    </ul>
+
+
+    <section>
+        <h3 id="jxs">JXS:</h3>
+        <pre>
+            <span>JXS</span> - preprocesor, Babel zamienia go na czysty JavaScript
+            - atrybuty muszą być pisane camelCase
+            - by uniknąć automatycznego średnika po return, należy użyć nawiasów:
+                <span>return (
+                code...
+                );</span>
+            - musi być jeden element nadrzędny w return, nawet same nawiasy &lt> &lt/>
+              lub możemy też użyć &ltReact.Fragment> &lt/React.Fragment>
+            - JSX po kompilacji wywołuje metodę React.createElement
+                <span>React.createElement( type, props, children)</span>
+                np:
+                &ltp id="someId" class="someClass"> Hello world! &lt/p>
+                kompiluje tak:
+                React.createElement (
+                    "p",
+                    { id: "someId" class: "someClass" },
+                    "Hello world!"
+                );
+            - za pomocą nawiasów klamrowych można przekazać wyrażenie czystego JS
+                <span>&ltp> Mnożenie { number * 2 } &lt/p></span>
+            - tworzenie komentarzy:  {/*  */}
+            - trzeba domykać znaczniki np. <span>&ltimg src="" /></span>
+            - zamiast class jest className
+            - zamiast for jest htmlFor
+            </pre>
+    </section>
+
+    <section>
+        <h3 id="komponenty">Komponenty:</h3>
+        <pre>
+            Instancja komponentu:
+            <span>
+            &ltNazwaKomponentu/>
+            </span>
+            lub
+            <span>
+            &ltNazwaKomponentu>
+                Jakiś props.children
+            &ltNazwaKomponentu/>
+            </span>
+            Komponent bezstanowy - funkcyjny:
+            <span>
+            const App = (props) => {
+                return (
+                    &ltdiv&gt
+                        &lth1&gt Komponent  funkcyjny &lt/h1&gt
+                    &lt/div&gt
+                )
+            }
+            ReactDOM.render( &ltApp/>, document.getElementById('root'));
+            </span>
+            Komponent stanowy -  klasowy:
+            <span>
+            class App2 extends React.Component {
+                state = {
+                    name: 0,
+                }
+                render() {
+                    return (
+                        &ltdiv>
+                            &lth1> Komponent klasowy {this.state.name} &lt/h1>
+                        &lt/div>
+                    )
+                } 
+            }
+            ReactDOM.render( &ltApp2/>, document.getElementById('root'));
+            </span>
+            - komponent klasowy wymaga dziedziczenia z klasy Component, która jest w React
+            - musi być w nim metoda render a w niej return
+            - duże litery w nazwie
+
+            Komponent nadrzędny:
+            <span>
+            const Application = () => {
+                return (
+                    &lt>
+                        &ltApp/>
+                        &ltApp2/>
+                    &lt/>
+                    
+                )
+            }
+            </span>
+        </pre>
+    </section>
+
+    <section>
+        <h3 id="state">State:</h3>
+        <pre>
+            State (stan) - obiekt należący do komponentu stanowego (klasowego).
+                           Ich zmiana pociąga za sobą aktualizację komponentu
+
+            - state możemy zadeklarować bezpośrednio w klasie: 
+            <span>
+            class App extends React.Component {
+                state {
+                    ...
+                }
+            }
+            </span>
+            - state możemy też zadeklarować w konstruktorze:
+            <span>
+            class App extends React.Component {
+                constructor(props){
+                    super(props);
+                    this.state = {...}
+                }
+            }
+            </span>
+            Zmiany w stanie mogą być dokonywane za pomocą metody <span>setState</span>
+            
+            1. Zwracamy obiekt:
+            <span>
+            handleClick(letter){
+                this.setState({
+                    text: this.state.text + letter
+                })
+            }
+            </span>
+            2. Funkcja zwracająca obiekt:
+            <span>
+            handleClick(letter){
+                this.setState( prevState => ({
+                    text: prevState + letter
+                }))
+            }
+            </span>
+            </pre>
+    </section>
+
+    <section>
+        <h3 id="props">Props:</h3>
+        <pre>
+            Props (właściwość) - obiekt przechowujący dane przekazane do komponentu.
+                                 Przepływ danych od rodzica do dziecka.
+                                 Są to właściwości tylko do odczutu.
+            <span>
+            &ltListItem
+                title = "Hello"
+                options = {...}
+                visible
+            />
+            </span>
+            a wygląda to tak:
+            <span>
+            props: {
+                title: 'hello',
+                options: {...},
+                visible: true
+            }
+            </span>
+            Jeżeli do nazwy właściwości nie przekażemy wartości jak w "visible",
+            to przypisane zostanie <span>true</span>.
+
+            Props znajduje się w każdym komponencie:
+            a) w komponencie klasowym używamy: this.props.nazwa
+            <span>
+            class App extends React.Component {
+                render() {
+                    console.log(this.props.name);
+                    return (...)
+                }
+            }
+            </span>
+            b) w komponencie funkcyjnym używamy: props.nazwa
+            <span>
+            const App = (props) => {
+                console.log(props);
+                return (
+                    &ltdiv> {props.name} &lt/div>
+                )
+            }
+            </span>
+            Domyślne wartości możemy zapisać w wartości statycznej w komponencie, 
+            używając nazwy "defaultProps":
+            <span>
+            static defaultProps = {
+                name: "...",
+            }
+            </span>
+            lub poza komponentem jako:
+            <span>
+                NazwaKomponentu.defaultProps{
+                    name: "...",
+                }
+            </span>
+            </pre>
+    </section>
+
+    <section>
+        <h3 id="this">Rozwiązanie problemu z this:</h3>
+        <pre>
+            1. Bind
+            <span>
+            handleClick(){
+                console.log(this)
+            }
+            return (
+                &ltinput onChange = {this.handleClick.bind(this)} />
+            )
+            </span>
+            2. Wiązanie w konstruktorze
+            <span>
+            constructor(props){
+                super(props);
+                this.handleClick = this.handleClick.bind(this)
+            }
+            handleClick(){
+                console.log(this)
+            }
+            return (
+                &ltinput onChange = {this.handleClick} />
+            )
+            </span>
+            3. Funkcja strzałkowa
+            <span>
+            handleClick = () => {
+                console.log(this)
+            }
+            return (
+                &ltinput onChange = {this.handleClick} />
+            )
+            </span>
+            4. Anonimowa funkcja strzałkowa
+            <span>
+            handleClick() {
+                console.log(this)
+            }
+            return (
+                &ltinput onChange = {() => this.handleClick()} />
+            )
+            </span>
+            5. Deklaracja metody i jej przypisanie
+            <span>
+            handleClick() {
+                console.log(this)
+            }
+            handleClick = this.handleClick.bind(this)
+            return (
+                &ltinput onChange = {this.handleClick} />
+            )
+            </span>
+            </pre>
+    </section>
+
+</body>
+
+</html>

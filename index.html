@@ -70,7 +70,7 @@
         <li><a href="#props">Props</a></li>
         <li><a href="#this">Problem z 'this'</a></li>
         <li><a href="#destructurung">Destruktyryzacja</a></li>
-        <li><a href=""></a></li>
+        <li><a href="#form">Formularze</a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
@@ -356,6 +356,86 @@
 
             <span>Wykorzystanie w React:</span>
             const {id, value, item} = this.state;
+        </pre>
+    </section>
+
+    <section>
+        <h3 id="form">Formularze:</h3>
+        <pre>
+            <span>Controlled Component - Komponent kontrolowany</span>
+            1. Wykorzystanie state do trzymania aktualnej wartości elementów formularza
+            2. Wykorzystanie atrybutów value i checked
+            3. Zmiana właściwości state za pomocą metody onChange (na polu), onSubmit (na formularzu)
+
+            // Przykład:
+
+            state = {
+                text: ""
+            }
+
+            handleChange = (e) => {
+                this.setState({
+                    text: e.taget.value         // (*)
+                })
+            };
+
+            &lt;input
+                type="text"
+                value={this.state.text}         // (*)
+                onChange={this.handleChange}
+            />
+
+            * Dla type='checkbox' oraz type='radio', będzie <span>checked</span> oraz <span>e.target.checked</span>
+              Dla pozostałych będzie <span>value</span> oraz <span>e.target.value</span>
+
+            
+            <span>Uncontrolled Component - Komponent niekontrolowany</span>
+            1. Wykorzystanie atrybutu reference
+            2. Odwołuje się za pomocą this.refs
+            3. Domyślna wartość za pomocą defaultValue / defaultChecked
+
+            // Przykład:
+
+            handleSubmit = (e) => {
+                e.preventDefault();
+               const name = this.refs.username.value;
+                // dodanie do jakieś tablicy lub state
+                this.refs.username.value = '';
+            }
+        
+            render() {
+                return (
+                    &lt;form onSubmit={this.handleSubmit}>
+                        &lt;input
+                            type="text"
+                            ref="username"
+                            defaultValue="Name"
+                        />
+                        &lt;button type="submit">Potwierdź&lt;/button>
+                    &lt;/form>
+                )
+            }
+
+            4. Alernatywnie możemy dostać się do właściwości przez e.target.elements
+
+            handleSubmit = (e) => {
+                e.preventDefault();
+                const name = e.target.elements.username.value;
+                // dodanie do jakieś tablicy lub state
+                e.target.elements.username.value = '';
+            }
+        
+            render() {
+                return (
+                    &lt;form onSubmit={this.handleSubmit}>
+                        &lt;input
+                            type="text"
+                            name="username"
+                        />
+                        &lt;button type="submit">Potwierdź&lt;/button>
+                    &lt;/form>
+                )
+            }
         </pre>
     </section>
 

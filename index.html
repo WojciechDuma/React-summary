@@ -69,7 +69,7 @@
         <li><a href="#state">State</a></li>
         <li><a href="#props">Props</a></li>
         <li><a href="#this">Problem z 'this'</a></li>
-        <li><a href=""></a></li>
+        <li><a href="#destructurung">Destruktyryzacja</a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
@@ -324,6 +324,39 @@
             )
             </span>
             </pre>
+    </section>
+
+    <section>
+        <h3 id="destructurung">Destruktyryzacja:</h3>
+        <pre>
+            <span>Destruktyryzacja</span> - pozwala wyodrębnić informację z tablic i obiektów.
+             
+            <span>Obiekt:</span>
+            const player = {
+                age: 25,
+                name: "Jack"
+            };
+
+            // ES5:
+            const age = player.age, name = player.name;
+
+            // ES6:
+            const {age, name} = player;
+
+            // Zmiana nazwy:
+            const { age: playerAge, name: playerName} = player;
+
+            <span>Tablica:</span>
+            const players = ['Jack', 'Emma'];
+
+            const [user_1, user_2] = players;
+
+            // Sposób na kopie tablicy:
+            const [...newPlayers] = players;
+
+            <span>Wykorzystanie w React:</span>
+            const {id, value, item} = this.state;
+        </pre>
     </section>
 
 </body>

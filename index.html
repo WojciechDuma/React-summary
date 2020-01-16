@@ -71,7 +71,7 @@
         <li><a href="#this">Problem z 'this'</a></li>
         <li><a href="#destructurung">Destruktyryzacja</a></li>
         <li><a href="#form">Formularze</a></li>
-        <li><a href=""></a></li>
+        <li><a href="#reactRouter">React Router</a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
@@ -436,6 +436,57 @@
                     &lt;/form>
                 )
             }
+        </pre>
+    </section>
+
+    <section>
+        <h3 id="reactRouter">React Router:</h3>
+        <pre>
+            <span>React Router</span> - biblioteka, dostarcza nam komponenty, które obsługują routing:
+            1. modydikuje URL
+            2. po wykonaniu modyfikacji ponownie renderuje aplikację
+            3. rozponaje URL i określa jakie komponenty mają być (a jakie nie) wyświetlane dla danej lokalizacji.
+
+            Instalacja:
+            <span>npm install react-router-dom</span>
+            Import:
+            <span>import {BrowserRouter, Route, NavLink... } from 'react-router-dom'</span>
+
+            1. <span>&lt;BrowserRouter></span> - komponent będący rodzicem, rdzeniem routingu w naszej aplikacji.
+            Może posiadać tylko jedno dziecko.
+            <span>
+                &lt;BrowserRouter>
+                    &lt;App>
+                &lt;/BrowserRouter>
+            </span>
+            LUB
+            <span>
+            return (
+                &lt;BrowserRouter>
+                    &lt;div> ... &lt;/div>
+                &lt;/BrowserRouter>
+            )
+            </span>
+            2. &lt;Route> - komponenty dobierające, określają kiedy i co wyświetlić.
+            Jeżeli ścieżka zgadza się z URL, renderowany jest komponent:
+            <span>&lt;Route path="/contact" component={Contact} /></span>
+
+            3. &lt;Switch> - kontener na wszystkie &lt;Route> - Zwraca pierwszy pasujący route!
+                <span>
+                    &lt;Switch>
+                        &lt;Route>
+                    &lt;/Switch>
+                </span>
+
+            4. &lt;Link>, &lt;NavLink> - komponenty nawigacyjne:
+            <span>&lt;Link to="/contact">Kontakt&lt;/Link></span>
+            <span>&lt;NavLink to="/contact">Kontakt&lt;/NavLink></span>
+            NavLink:
+            - do nawigacji linkami w nav
+            - to="/"  -adres linku
+            - dodaje klase "active" do aktywnego linka, który klikneliśmy.
+            - możemy użyć "activeClassName" do przypisania jakieś nowej klasy
+            - activeStyle{{}} - możemy dopisać liniowo style
         </pre>
     </section>
 

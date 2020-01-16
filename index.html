@@ -470,6 +470,8 @@
             2. &lt;Route> - komponenty dobierające, określają kiedy i co wyświetlić.
             Jeżeli ścieżka zgadza się z URL, renderowany jest komponent:
             <span>&lt;Route path="/contact" component={Contact} /></span>
+            - możemy zamiast 'component' przekazać render={()=> ()} - funckję
+            - 'exact' - odnosi się tylko do konkretnego url
 
             3. &lt;Switch> - kontener na wszystkie &lt;Route> - Zwraca pierwszy pasujący route!
                 <span>
@@ -482,11 +484,15 @@
             <span>&lt;Link to="/contact">Kontakt&lt;/Link></span>
             <span>&lt;NavLink to="/contact">Kontakt&lt;/NavLink></span>
             NavLink:
-            - do nawigacji linkami w nav
+            - do nawigacji linkami w nav, zastępuje &lt;a href="">
             - to="/"  -adres linku
             - dodaje klase "active" do aktywnego linka, który klikneliśmy.
             - możemy użyć "activeClassName" do przypisania jakieś nowej klasy
             - activeStyle{{}} - możemy dopisać liniowo style
+
+            5. &lt;Prompt/> - blokuje przechodzenie na inną stronę
+            - zawiera atrybut: "when={warunek}" oraz "message" - wiadomość
+            - wyświetla się w alercie przy zmianie adresu URL 
         </pre>
     </section>
 

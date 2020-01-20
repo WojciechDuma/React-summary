@@ -72,7 +72,7 @@
         <li><a href="#destructurung">Destruktyryzacja</a></li>
         <li><a href="#form">Formularze</a></li>
         <li><a href="#reactRouter">React Router</a></li>
-        <li><a href=""></a></li>
+        <li><a href="#css">CSS</a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
     </ul>
@@ -467,20 +467,20 @@
                 &lt;/BrowserRouter>
             )
             </span>
-            2. &lt;Route> - komponenty dobierające, określają kiedy i co wyświetlić.
+            2. <span>&lt;Route></span> - komponenty dobierające, określają kiedy i co wyświetlić.
             Jeżeli ścieżka zgadza się z URL, renderowany jest komponent:
             <span>&lt;Route path="/contact" component={Contact} /></span>
             - możemy zamiast 'component' przekazać render={()=> ()} - funckję
             - 'exact' - odnosi się tylko do konkretnego url
 
-            3. &lt;Switch> - kontener na wszystkie &lt;Route> - Zwraca pierwszy pasujący route!
+            3. <span>&lt;Switch></span> - kontener na wszystkie &lt;Route> - Zwraca pierwszy pasujący route!
                 <span>
                     &lt;Switch>
                         &lt;Route>
                     &lt;/Switch>
                 </span>
 
-            4. &lt;Link>, &lt;NavLink> - komponenty nawigacyjne:
+            4. <span>&lt;Link>, &lt;NavLink></span> - komponenty nawigacyjne:
             <span>&lt;Link to="/contact">Kontakt&lt;/Link></span>
             <span>&lt;NavLink to="/contact">Kontakt&lt;/NavLink></span>
             NavLink:
@@ -490,9 +490,103 @@
             - możemy użyć "activeClassName" do przypisania jakieś nowej klasy
             - activeStyle{{}} - możemy dopisać liniowo style
 
-            5. &lt;Prompt/> - blokuje przechodzenie na inną stronę
+            5. <span>&lt;Prompt/></span> - blokuje przechodzenie na inną stronę
             - zawiera atrybut: "when={warunek}" oraz "message" - wiadomość
             - wyświetla się w alercie przy zmianie adresu URL 
+
+            6. <span>&lt;Redirect/></span> - przekierowuję na inną podstronę
+            - atrybut: to="/subpage"
+        </pre>
+    </section>
+
+    <section>
+        <h3 id="css">CSS:</h3>
+        <pre>
+            1. Stylowanie liniowe - dodajemy liniowo w JXS: <span>style={{ ... }}</span>
+           
+            &lt;button style={{ fontSize:30, padding: '10px 20px' }}>Click&lt;/button>
+
+            ---------------------------------------------------------
+
+            Stylowanie za pomocą zmiennych: 
+            const btn_on = {
+                fontSize: 30, 
+                padding: '10px 20px',
+                backgroundColor: 'white'
+            }
+
+            &lt;button style={btn_on}>Click&lt;/button>
+
+            ---------------------------------------------------------
+
+            Stylowanie za pomocą jednej zmiennej:
+            const style = {
+                const btn_on = {
+                    fontSize: 30, 
+                    padding: '10px 20px',
+                    backgroundColor: 'white'
+                }
+    
+                const btn_off = {
+                    fontSize: 30, 
+                    padding: '10px 20px',
+                    backgroundColor: 'white',
+                    color: 'black'
+                }
+            }
+
+            &lt;button style={this.state.active ? style.btn_on : style.btn_off}>Click&lt;/button>
+
+            ---------------------------------------------------------
+
+            Stylowanie jedną zmienną + instrukcja warunkowa: 
+
+            const btn = {
+                fontSize: 30, 
+                padding: '10px 20px',
+                backgroundColor: 'white'
+            }
+
+            if(this.state.active){
+                btn.backgroundColor: 'black';
+                btn.color: 'white';
+            }
+
+            &lt;button style={btn}>Click&lt;/button>
+
+            Stylowanie liniowe:
+            1) zalety: 
+            - piszemy bezpośrednio w komponencie, który stylujemy
+            - style są lokalne a nie globalne - nie będzie konflitku nazwa
+            2) wady:
+            - ograniczona funkcjonalność
+            - nie możemy użyć pseudoklas, media queries i keyframes 
+              bez użycia dodatkowych bibliotek
+
+            ##########################################################
+
+            2. Importowanie arkuszy stylów:
+
+            <span>import "./App.css"</span>
+
+            &lt;button className={btn}>Click&lt;/button>
+
+            1) zalety:
+            - możemy stworzyć nowy arkusz i zaimportować go do każdego komponentu
+            2) wady:
+            - wszystkie style są globalne, wszystko jest "bandlowane" (bundle) do jednego pliku css
+
+            ##########################################################
+
+            Sass:
+            1. <span>npm install node-sass</span> // instalacja
+
+            ##########################################################
+
+            Bootstrap:
+            1. <span>npm install bootstrap</span> // instalacja
+            2. import 'bootstrap/dist/css/bootstrap.min.css' // dodajemy ściężkę 
+            3. &lt;button className="btn btn-dark">Click&lt;/button> // używamy
         </pre>
     </section>
 

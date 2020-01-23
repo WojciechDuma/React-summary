@@ -90,7 +90,7 @@
             - musi być jeden element nadrzędny w return, nawet same nawiasy &lt> &lt/>
               lub możemy też użyć &ltReact.Fragment> &lt/React.Fragment>
             - JSX po kompilacji wywołuje metodę React.createElement
-                <span>React.createElement( type, props, children)</span>
+                <span>React.createElement( element, props, children)</span>
                 np:
                 &ltp id="someId" class="someClass"> Hello world! &lt/p>
                 kompiluje tak:
@@ -111,17 +111,20 @@
     <section>
         <h3 id="komponenty">Komponenty:</h3>
         <pre>
-            Instancja komponentu:
-            <span>
-            &ltNazwaKomponentu/>
-            </span>
+            1. Instancja komponentu:
+
+            <span>&ltNazwaKomponentu/></span>
+
             lub
             <span>
             &ltNazwaKomponentu>
                 Jakiś props.children
             &ltNazwaKomponentu/>
             </span>
-            Komponent bezstanowy - funkcyjny:
+
+            ##########################################################
+
+            2. Komponent bezstanowy - funkcyjny:
             <span>
             const App = (props) => {
                 return (
@@ -130,9 +133,12 @@
                     &lt/div&gt
                 )
             }
-            ReactDOM.render( &ltApp/>, document.getElementById('root'));
+            export default App;
             </span>
-            Komponent stanowy -  klasowy:
+
+            ##########################################################
+
+            3. Komponent stanowy -  klasowy:
             <span>
             class App2 extends React.Component {
                 state = {
@@ -146,24 +152,29 @@
                     )
                 } 
             }
-            ReactDOM.render( &ltApp2/>, document.getElementById('root'));
+            export default App2;
             </span>
             - komponent klasowy wymaga dziedziczenia z klasy Component, która jest w React
             - musi być w nim metoda render a w niej return
             - duże litery w nazwie
 
-            Komponent nadrzędny:
+            ##########################################################
+
+            4. Komponent nadrzędny:
             <span>
+            import App from './App';
+            import App2 from './App';
+                
             const Application = () => {
                 return (
                     &lt>
                         &ltApp/>
                         &ltApp2/>
                     &lt/>
-                    
                 )
             }
-            </span>
+
+            ReactDOM.render( &ltApplication/>, document.getElementById('root'));</span>
         </pre>
     </section>
 
@@ -267,6 +278,57 @@
                     name: "...",
                 }
             </span>
+
+            ##########################################################
+
+            <span>Mapowanie:</span>
+
+            1. Plik z danymi
+            ourDataObject [
+            {
+                name: 'Jack',
+                age: 20,
+            }
+            {
+                name: 'Emma',
+                age: 19,
+            }
+            ]
+            
+            2. Plik z komponentem nadrzędnym
+            const data = ourDataObject.map(item => (&lt;SomeComponent {...item} />));
+            &lt;List {data} />
+
+            3. Plik z komponentem prywatnym (używanym tylko w jednym komponecie nadrzędnym)
+            const List = props => (
+                &lt;li>
+                    &lt;p>{props.name}&lt;/p>
+                    &lt;p>{props.age}&lt;/p>
+                &lt;/li>
+            )
+
+            ##########################################################
+
+            <span>PropTypes</span> - narzędzie do weryfikowania jakie propsy przekazujemy do komponentu:
+
+            import PropTypes from 'prop-types';
+
+            ComponentName.propTypes = {
+                image: PropTypes.string.isRequired,
+                name: PropTypes.string,
+                age: PropTypes.number,
+                function: PropTypes.func,
+                array: PropTypes.arrayOf(PropTypes.string)
+            }
+
+            ComponentName.defaultProps = {
+                name: 'some name',
+                age: 'some age'
+            }
+
+            .isRequired - props wymagany, nie możemy uniknąć aby go podać
+            .defaultProps - wartości domyślne jeżeli jakiś props nie jest .isRequired 
+                            i przez przypadek nie jest podany
             </pre>
     </section>
 
@@ -576,6 +638,14 @@
             2) wady:
             - wszystkie style są globalne, wszystko jest "bandlowane" (bundle) do jednego pliku css
 
+            ##########################################################
+
+            3. CSS Modules - pozwala uniknąć konflitku nazw w dużych projektach
+
+            1) Plik nazywamy: <span>Component.module.css</span>
+            2) Importujemy: <span>import styles from "./Component.module.css"</span>
+            3) Dodajmy: <span>&lt;div className={styles.class}></span>
+        
             ##########################################################
 
             Sass:

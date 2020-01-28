@@ -73,8 +73,7 @@
         <li><a href="#form">Formularze</a></li>
         <li><a href="#reactRouter">React Router</a></li>
         <li><a href="#css">CSS</a></li>
-        <li><a href=""></a></li>
-        <li><a href=""></a></li>
+        <li><a href="#contextAPI">Context API</a></li>
     </ul>
 
 
@@ -203,7 +202,7 @@
             </span>
             Zmiany w stanie mogą być dokonywane za pomocą metody <span>setState</span>
             
-            1. Zwracamy obiekt:
+            1. Zmiana state
             <span>
             handleClick(letter){
                 this.setState({
@@ -211,7 +210,7 @@
                 })
             }
             </span>
-            2. Funkcja zwracająca obiekt:
+            2. Zmiana state w zależności od poprzedniego stanu
             <span>
             handleClick(letter){
                 this.setState( prevState => ({
@@ -535,7 +534,8 @@
             - możemy zamiast 'component' przekazać render={()=> ()} - funckję
             - 'exact' - odnosi się tylko do konkretnego url
 
-            3. <span>&lt;Switch></span> - kontener na wszystkie &lt;Route> - Zwraca pierwszy pasujący route!
+            3. <span>&lt;Switch></span> - kontener na wszystkie &lt;Route> 
+            - Zwraca pierwszy pasujący Route - Renderuje tylko jeden Route. 
                 <span>
                     &lt;Switch>
                         &lt;Route>
@@ -657,6 +657,30 @@
             1. <span>npm install bootstrap</span> // instalacja
             2. import 'bootstrap/dist/css/bootstrap.min.css' // dodajemy ściężkę 
             3. &lt;button className="btn btn-dark">Click&lt;/button> // używamy
+        </pre>
+    </section>
+
+    <section>
+        <h3 id="contextAPI">Context API:</h3>
+        <pre>
+            Context API:
+            - share state within a component tree,
+            - kontekst pozwala na przekazanie wartości głęboko do drzewa  komponentów 
+              z pominięciem komponentów pośrednich.
+
+            1. <span>const NameContext = React.createContext()</span>
+
+            2. <span>&lt;NameContext.Provider value={this.state.something}></span>
+                Wszystkie elementy które mają mieć dostęp do contextu muszą
+                byś oplecione Providerem.
+               <span>&lt;/NameContext.Provider></span>
+            
+            3. <span>&lt;NameContext.Consumer>
+                {(context) => (
+                    {context}
+                )}
+            &lt;/NameContext.consumer>
+            </span>
         </pre>
     </section>
 

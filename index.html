@@ -657,6 +657,72 @@
             1. <span>npm install bootstrap</span> // instalacja
             2. import 'bootstrap/dist/css/bootstrap.min.css' // dodajemy ściężkę 
             3. &lt;button className="btn btn-dark">Click&lt;/button> // używamy
+
+            ##########################################################
+
+            Styled Components
+
+            1. npm install --save styled-components     // install
+
+            2. import styled form 'styled-components';  // import
+
+            3. const MyButton = styled.button`          // definiujemy
+                    border: 1px solid red;
+                    padding: 10px 30px;
+                `;
+
+            4. Tworzymy komponent z naszymi stylami:
+                &lt;MyFirstButton>This is my button&lt;/MyFirstButton>  
+                &lt;MySecondButton propsName>This is my button&lt;/MySecondButton>
+            
+            5. Propsy - w przypadku gdy chcemy mieć różne style jednego komponentu
+            
+            a) Jeżeli chcemy uwzględnić propsy przekazujemy je w funkcji strzałkowej:
+
+                const MyButton = styled.button`
+                    border: 1px solid red;
+                    background-color: ${(props)=> props.propsName ? 'black' : 'white'};
+                    padding: 10px 30px;
+                `;
+
+            b) Inny sposób na propsy, gdy zmiennych jest więcej:
+
+                import styled, { css } form 'styled-components';  // import jeszcze 'css'
+
+                const MyButton = styled.button`
+                    border: 1px solid red;
+                    background-color: black;
+                    padding: 10px 30px;
+                    width: 200px;
+                    height: 70px;
+
+                    ${(props) => (
+                        props.propsName && css`        // w tym miejscu używamy zainstalowanego css
+                            background-color: blue;
+                            width: 100px;
+                            height: 40px;
+                        `
+                    )};
+                `;
+            
+            6. Style globalne:
+
+                import {createGlobalStyle } form 'styled-components';
+
+                const GlobalStyle = createGlobalStyle`
+                    *, *::before, *::after{
+                        ...
+                    }
+
+                    body {
+                        ...
+                    }
+
+                `;
+
+                Importujemy i wstawiamy sobie ten komponent w komponencie głównym - rootowym,
+                na pierwszej pozycji, na samym początku - wtedy nasze style zostaną zaaplikowane 
+                poprawnie do wszystkich naszych komponentów. 
         </pre>
     </section>
 
